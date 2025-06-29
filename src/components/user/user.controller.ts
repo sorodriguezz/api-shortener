@@ -1,17 +1,16 @@
 import {
-  Controller,
-  Get,
-  Post,
   Body,
-  Patch,
-  Param,
+  Controller,
   Delete,
+  Get,
+  Param,
   ParseIntPipe,
-  ParseBoolPipe,
+  Patch,
+  Post,
 } from '@nestjs/common';
-import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { UserService } from './user.service';
 
 @Controller('user')
 export class UserController {
@@ -23,7 +22,7 @@ export class UserController {
   }
 
   @Get()
-  findAll(@Param('isActive', ParseBoolPipe) isActive: boolean) {
+  findAll(@Param('isActive') isActive: boolean) {
     return this.userService.findAll(isActive);
   }
 
