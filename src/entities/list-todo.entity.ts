@@ -6,12 +6,12 @@ import {
   OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { SharedEntity } from '../shared/shared.entity';
+import { SharedEntity } from './../shared/shared.entity';
 import { UserEntity } from './user.entity';
-import { LinkEntity } from './link.entity';
+import { TodoEntity } from './todo.entity';
 
-@Entity({ name: 'group_link' })
-export class GroupLinkEntity extends SharedEntity {
+@Entity({ name: 'list_todo' })
+export class ListTodoEntity extends SharedEntity {
   @PrimaryGeneratedColumn('identity')
   id: number;
 
@@ -22,12 +22,12 @@ export class GroupLinkEntity extends SharedEntity {
   @Column({ type: 'varchar', length: 50, unique: true })
   title: string;
 
-  @Column({ type: 'varchar', length: 255 })
+  @Column({ type: 'varchar', length: 200 })
   description: string;
 
-  @ManyToOne(() => UserEntity, (user) => user.groupLink)
+  @ManyToOne(() => UserEntity, (user) => user.listTodo)
   user: UserEntity;
 
-  @OneToMany(() => LinkEntity, (link) => link.groupLink)
-  link: LinkEntity[];
+  @OneToMany(() => TodoEntity, (todo) => todo.listTodo)
+  todo: TodoEntity[];
 }
