@@ -1,9 +1,17 @@
+import { GroupLinkEntity } from './../../entities/group-link.entity';
 import { Injectable } from '@nestjs/common';
 import { CreateGroupLinkDto } from './dto/create-group-link.dto';
 import { UpdateGroupLinkDto } from './dto/update-group-link.dto';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 
 @Injectable()
 export class GroupLinkService {
+  constructor(
+    @InjectRepository(GroupLinkEntity)
+    private readonly groupLinkRepository: Repository<GroupLinkEntity>,
+  ) {}
+
   create(createGroupLinkDto: CreateGroupLinkDto) {
     return 'This action adds a new groupLink';
   }

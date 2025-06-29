@@ -1,11 +1,38 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateLinkDto } from './dto/create-link.dto';
 import { UpdateLinkDto } from './dto/update-link.dto';
+import { InjectRepository } from '@nestjs/typeorm';
+import { LinkEntity } from '../../entities';
+import { Repository } from 'typeorm';
+import { GroupLinkService } from '../group-link/group-link.service';
 
 @Injectable()
 export class LinkService {
-  create(createLinkDto: CreateLinkDto) {
-    return 'This action adds a new link';
+  constructor(
+    @InjectRepository(LinkEntity)
+    private readonly linkRepository: Repository<LinkEntity>,
+    private readonly groupLinkService: GroupLinkService,
+  ) {}
+
+  async create(createLinkDto: CreateLinkDto) {
+    const { title, description, url, image, groupLinkId } = createLinkDto;
+
+    // const groupLink = await this.groupLinkService.findOne(groupLinkId);
+
+    // if (!groupLink) {
+    //   throw new NotFoundException(
+    //     `No existe grupo de links con id ${groupLinkId}`,
+    //   );
+    // }
+
+    // const link = this.linkRepository.create({
+    //   title,
+    //   description,
+    //   url,
+    //   image,
+    //   groupLink,
+    // });
+    // return this.linkRepository.save(link);
   }
 
   findAll() {

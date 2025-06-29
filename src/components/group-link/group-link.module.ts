@@ -5,5 +5,6 @@ import { GroupLinkController } from './group-link.controller';
 @Module({
   controllers: [GroupLinkController],
   providers: [GroupLinkService],
+  exports: [GroupLinkService],
 })
 export class GroupLinkModule {}

@@ -9,28 +9,28 @@ import { Repository } from 'typeorm';
 export class TagLinkService {
   constructor(
     @InjectRepository(TagLinkEntity)
-    private readonly tagRepository: Repository<TagLinkEntity>,
+    private readonly tagLinkRepository: Repository<TagLinkEntity>,
   ) {}
 
   create(createTagDto: CreateTagDto) {
     const { title, color } = createTagDto;
-    const tag = this.tagRepository.create({ title, color });
-    return this.tagRepository.save(tag);
+    const tag = this.tagLinkRepository.create({ title, color });
+    return this.tagLinkRepository.save(tag);
   }
 
   findAll() {
-    return this.tagRepository.find();
+    return this.tagLinkRepository.find();
   }
 
   findOne(id: number) {
-    return this.tagRepository.findOneBy({ id });
+    return this.tagLinkRepository.findOneBy({ id });
   }
 
   update(id: number, updateTagDto: UpdateTagDto) {
-    return this.tagRepository.update(id, updateTagDto);
+    return this.tagLinkRepository.update(id, updateTagDto);
   }
 
   remove(id: number) {
-    return this.tagRepository.delete(id);
+    return this.tagLinkRepository.delete(id);
   }
 }

@@ -28,6 +28,9 @@ export class UserEntity extends SharedEntity {
   @Column({ type: 'varchar', length: 100 })
   password: string;
 
+  @Column({ name: 'is_enable,', type: 'boolean', default: true })
+  isEnable: boolean;
+
   @ManyToMany(() => RoleEntity)
   @JoinTable()
   roles: RoleEntity[];
