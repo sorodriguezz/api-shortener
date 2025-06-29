@@ -1,5 +1,5 @@
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
-import { SharedEntity } from './shared.entity';
+import { SharedEntity } from '../shared/shared.entity';
 
 @Entity({ name: 'permission' })
 export class PermissionEntity extends SharedEntity {

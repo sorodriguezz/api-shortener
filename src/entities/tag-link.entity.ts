@@ -1,8 +1,8 @@
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
-import { SharedEntity } from './shared.entity';
+import { SharedEntity } from '../shared/shared.entity';
 
-@Entity({ name: 'tag' })
-export class TagEntity extends SharedEntity {
+@Entity({ name: 'tag-link' })
+export class TagLinkEntity extends SharedEntity {
   @PrimaryGeneratedColumn('identity')
   id: number;
 

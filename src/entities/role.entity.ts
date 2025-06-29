@@ -5,7 +5,7 @@ import {
   ManyToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { SharedEntity } from './shared.entity';
+import { SharedEntity } from '../shared/shared.entity';
 import { PermissionEntity } from './permission.entity';
 
 @Entity({ name: 'role' })

@@ -6,7 +6,7 @@ import {
   OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { SharedEntity } from './shared.entity';
+import { SharedEntity } from '../shared/shared.entity';
 import { RoleEntity } from './role.entity';
 import { GroupLinkEntity } from './group-link.entity';
 

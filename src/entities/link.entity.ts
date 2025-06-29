@@ -7,9 +7,9 @@ import {
   ManyToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { SharedEntity } from './shared.entity';
+import { SharedEntity } from '../shared/shared.entity';
 import { GroupLinkEntity } from './group-link.entity';
-import { TagEntity } from './tag.entity';
+import { TagLinkEntity } from './tag-link.entity';
 
 @Entity({ name: 'link' })
 export class LinkEntity extends SharedEntity {
@@ -35,7 +35,7 @@ export class LinkEntity extends SharedEntity {
   @ManyToOne(() => GroupLinkEntity, (groupLink) => groupLink.link)
   groupLink: GroupLinkEntity;
 
-  @ManyToMany(() => TagEntity)
+  @ManyToMany(() => TagLinkEntity)
   @JoinTable()
-  tags: TagEntity[];
+  tags: TagLinkEntity[];
 }

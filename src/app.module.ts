@@ -1,19 +1,14 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import configuration from './config/configuration';
-import { PermissionEntity } from './entities/permission.entity';
-import { RoleEntity } from './entities/role.entity';
-import { UserEntity } from './entities/user.entity';
-import { GroupLinkEntity } from './entities/group-link.entity';
-import { LinkEntity } from './entities/link.entity';
-import { TagEntity } from './entities/tag.entity';
-import { TagModule } from './components/tag/tag.module';
-import { LinkModule } from './components/link/link.module';
-import { UserModule } from './components/user/user.module';
 import { GroupLinkModule } from './components/group-link/group-link.module';
-import { RoleModule } from './components/role/role.module';
+import { LinkModule } from './components/link/link.module';
 import { PermissionModule } from './components/permission/permission.module';
+import { RoleModule } from './components/role/role.module';
+import { UserModule } from './components/user/user.module';
+import configuration from './config/configuration';
+import { SharedModule } from './shared/shared.module';
+import { TagLinkModule } from './components/tag-link/tag-link.module';
 
 @Module({
   imports: [
@@ -27,20 +22,13 @@ import { PermissionModule } from './components/permission/permission.module';
         ...(await configService.get('database')),
       }),
     }),
-    TypeOrmModule.forFeature([
-      PermissionEntity,
-      RoleEntity,
-      UserEntity,
-      GroupLinkEntity,
-      LinkEntity,
-      TagEntity,
-    ]),
-    TagModule,
+    TagLinkModule,
     LinkModule,
     UserModule,
     GroupLinkModule,
     RoleModule,
     PermissionModule,
+    SharedModule,
   ],
 })
 export class AppModule {}
