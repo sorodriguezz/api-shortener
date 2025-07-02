@@ -1,6 +1,7 @@
 import {
   Column,
   Entity,
+  Generated,
   JoinTable,
   ManyToMany,
   OneToMany,
@@ -15,6 +16,10 @@ import { ListTodoEntity } from './list-todo.entity';
 export class UserEntity extends SharedEntity {
   @PrimaryGeneratedColumn('identity')
   id: number;
+
+  @Column({ type: 'varchar', unique: true })
+  @Generated('uuid')
+  uuid: string;
 
   @Column({ type: 'varchar', length: 50 })
   name: string;

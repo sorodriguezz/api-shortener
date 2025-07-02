@@ -2,7 +2,7 @@ import { BadRequestException, Injectable } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { InjectRepository } from '@nestjs/typeorm';
-import { UserEntity } from 'src/entities';
+import { UserEntity } from '../../entities';
 import { Repository } from 'typeorm';
 
 @Injectable()
@@ -31,6 +31,7 @@ export class UserService {
     const userSaved = await this.userRepository.save(user);
 
     return {
+      uuid: userSaved.uuid,
       name: userSaved.name,
       lastname: userSaved.name,
       email: userSaved.email,
@@ -47,7 +48,7 @@ export class UserService {
     }
 
     return users.map((user: UserEntity) => ({
-      id: user.id,
+      uuid: user.uuid,
       name: user.name,
       lastname: user.lastname,
       email: user.email,
@@ -55,12 +56,15 @@ export class UserService {
     }));
   }
 
-  async findOne(id: number) {
-    const existUser = await this.userRepository.findOneBy({ id });
+  async findOne(uuid: string) {
+    const existUser = await this.userRepository.findOneBy({ uuid });
+
     if (!existUser) {
-      throw new BadRequestException(`No existe usuario con id ${id}`);
+      throw new BadRequestException(`No existe usuario con uuid ${uuid}`);
     }
+
     return {
+      uuid: existUser.uuid,
       name: existUser.name,
       lastname: existUser.lastname,
       email: existUser.email,
@@ -68,13 +72,13 @@ export class UserService {
     };
   }
 
-  async update(id: number, updateUserDto: UpdateUserDto) {
+  async update(uuid: string, updateUserDto: UpdateUserDto) {
     const { name, lastname, email, password, isEnable } = updateUserDto;
 
-    const existUser = await this.userRepository.findOneBy({ id });
+    const existUser = await this.userRepository.findOneBy({ uuid });
 
     if (!existUser) {
-      throw new BadRequestException(`No existe usuario con id {${id}}`);
+      throw new BadRequestException(`No existe usuario con uuid {${uuid}}`);
     }
 
     if (email) {
@@ -86,6 +90,7 @@ export class UserService {
     }
 
     const user = {
+      uuid: existUser.uuid,
       name: name || existUser.name,
       lastname: lastname || existUser.lastname,
       email: email || existUser.email,
@@ -93,23 +98,10 @@ export class UserService {
       isEnable: !isEnable ? isEnable : existUser.isEnable,
     };
 
-    await this.userRepository.update(id, user);
+    await this.userRepository.update(uuid, user);
 
     return {
-      message: `Usuario con id {${id}} actualizado`,
-    };
-  }
-
-  async remove(id: number) {
-    const existUser = await this.userRepository.findOneBy({ id });
-
-    if (!existUser) {
-      throw new BadRequestException(`No existe usuario con id {${id}}`);
-    }
-
-    await this.userRepository.delete(id);
-    return {
-      message: `Usuario con id {${id}} eliminado`,
+      message: `Usuario con uuid {${uuid}} actualizado`,
     };
   }
 }

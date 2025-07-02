@@ -1,4 +1,12 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+} from '@nestjs/common';
 import { GroupLinkService } from './group-link.service';
 import { CreateGroupLinkDto } from './dto/create-group-link.dto';
 import { UpdateGroupLinkDto } from './dto/update-group-link.dto';
@@ -23,7 +31,10 @@ export class GroupLinkController {
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateGroupLinkDto: UpdateGroupLinkDto) {
+  update(
+    @Param('id') id: string,
+    @Body() updateGroupLinkDto: UpdateGroupLinkDto,
+  ) {
     return this.groupLinkService.update(+id, updateGroupLinkDto);
   }
 
