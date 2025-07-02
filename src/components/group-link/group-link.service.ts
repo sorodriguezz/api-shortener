@@ -42,7 +42,6 @@ export class GroupLinkService {
     const groupLinkCreated = await this.groupLinkRepository.save(newGroupLink);
 
     return {
-      id: groupLinkCreated.id,
       uuid: groupLinkCreated.uuid,
       title: groupLinkCreated.title,
       description: groupLinkCreated.description,
@@ -51,7 +50,9 @@ export class GroupLinkService {
   }
 
   findAll() {
-    return this.groupLinkRepository.find();
+    return this.groupLinkRepository.find({
+      select: ['uuid', 'title', 'description', 'createdAt', 'updatedAt'],
+    });
   }
 
   findOne(id: number) {
