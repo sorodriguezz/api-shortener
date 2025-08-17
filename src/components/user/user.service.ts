@@ -4,6 +4,7 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { UserEntity } from '../../entities';
 import { Repository } from 'typeorm';
+import { BcryptPasswordHasher } from 'src/adapters/password-hasher/bcrypt-password-hasher';
 
 @Injectable()
 export class UserService {
@@ -21,11 +22,14 @@ export class UserService {
       throw new BadRequestException(`Ya existe email ${email}`);
     }
 
+    const passwordHasher = new BcryptPasswordHasher();
+    const hashedPassword = await passwordHasher.hash(password);
+
     const user = this.userRepository.create({
       name,
       lastname,
       email,
-      password,
+      password: hashedPassword,
     });
 
     const userSaved = await this.userRepository.save(user);
