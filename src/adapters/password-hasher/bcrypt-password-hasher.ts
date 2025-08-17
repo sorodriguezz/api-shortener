@@ -15,11 +15,11 @@ export class BcryptPasswordHasher implements PasswordHasher {
     this._saltRounds = value;
   }
 
-  async hash(password: string): Promise<string> {
-    return bcrypt.hash(password, this._saltRounds);
+  hash(password: string): string {
+    return bcrypt.hashSync(password, this._saltRounds);
   }
 
-  async compare(password: string, hash: string): Promise<boolean> {
-    return bcrypt.compare(password, hash);
+  compare(password: string, hash: string): boolean {
+    return bcrypt.compareSync(password, hash);
   }
 }

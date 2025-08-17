@@ -23,7 +23,7 @@ export class UserService {
     }
 
     const passwordHasher = new BcryptPasswordHasher();
-    const hashedPassword = await passwordHasher.hash(password);
+    const hashedPassword = passwordHasher.hash(password);
 
     const user = this.userRepository.create({
       name,
